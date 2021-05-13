@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.assignment3;
+package sk.stuba.fei.uim.oop.assignment3.Product;
 
 import lombok.Getter;
 
@@ -7,9 +7,9 @@ public class ProductResponse {
     private Long id;
     private String name;
     private String description;
-    private Long amount;
+    private int amount;
     private String unit;
-    private Double price;
+    private int price;
 
     public ProductResponse(Product p){
         this.id = p.getId();
