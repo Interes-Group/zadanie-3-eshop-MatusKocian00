@@ -7,9 +7,9 @@ public class ProductResponse {
     private Long id;
     private String name;
     private String description;
-    private int amount;
+    private Long amount;
     private String unit;
-    private int price;
+    private Double price;
 
     public ProductResponse(Product p){
         this.id = p.getId();

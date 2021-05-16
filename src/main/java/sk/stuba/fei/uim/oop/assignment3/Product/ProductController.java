@@ -27,8 +27,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product findById(@PathVariable("id") Long id){
-        return this.service.findById(id);
+    public ProductResponse findById(@PathVariable("id") Long id){
+        return new ProductResponse(this.service.findById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -42,12 +42,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/amount")
-    public Map<String, Integer> getAmount(@PathVariable("id") Long id) {
+    public Map<String, Long> getAmount(@PathVariable("id") Long id) {
         return Collections.singletonMap("amount", this.service.getAmount(id)
         );
     }
     @PostMapping("/{id}/amount")
-    public Map<String, Integer> getAmount(@PathVariable("id") Long id, @RequestBody ProductRequest request) {
+    public Map<String, Long> getAmount(@PathVariable("id") Long id, @RequestBody ProductRequest request) {
         return Collections.singletonMap("amount", this.service.updateAmount(request, id));
     }
 }
