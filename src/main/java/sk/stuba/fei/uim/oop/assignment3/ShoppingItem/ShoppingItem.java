@@ -29,8 +29,9 @@ public class ShoppingItem {
 
     public ShoppingItem(Product product, Long amount) {
         this.amount = amount;
-        this.product = product;
         this.price = product.getPrice();
+        this.product = product;
+
     }
 
 }

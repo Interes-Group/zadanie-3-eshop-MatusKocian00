@@ -51,23 +51,26 @@ public class CartService implements ICartService {
     @Override
     public Cart addProductToCart(Long cartId, ShoppingItemRequest request) {
         Cart cart = this.cartRepository.findById(cartId).orElseThrow(() -> new ResourceNotFoundException("The cart was not found"));
-        if(cart.getPayed()) throw new BadRequestException("Already paid, cannot add");
         Product product = this.productService.getById(request.getProductId());
+        if(cart.getPayed() || request.getAmount() > product.getAmount() ) throw new BadRequestException("Already paid, cannot add");
+
         ShoppingItem item = new ShoppingItem(product,request.getAmount());
-        if (product.getAmount() >= request.getAmount()) {
-            product.setAmount(product.getAmount() - request.getAmount());
-            item.setAmount(request.getAmount());
-            if (cart.getShoppingList().contains(item)){
-                System.out.println("Hello");
+        for (ShoppingItem itemInCart: cart.getShoppingList()) {
+            if(itemInCart.getProduct().getId().equals(request.getProductId())){
+                cart.getShoppingList().remove(itemInCart);
+                itemInCart.setAmount(itemInCart.getAmount()+ request.getAmount());
+                product.setAmount(product.getAmount()- request.getAmount());
+                this.shopItemsRepository.save(itemInCart);
+                cart.getShoppingList().add(itemInCart);
+                this.productService.save(product);
+                return this.cartRepository.save(cart);
             }
-            else{
-
-                cart.getShoppingList().add(item);
-            }
+            
         }
-        else throw new BadRequestException("Not enough products");
-
+        product.setAmount(product.getAmount()- request.getAmount());
+        this.productService.save(product);
         this.shopItemsRepository.save(item);
+        cart.getShoppingList().add(item);
         this.productService.save(product);
         return this.cartRepository.save(cart);
     }

@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.Product;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -21,6 +22,7 @@ public class ProductController {
         return this.service.getAll().stream().map(ProductResponse::new).collect(Collectors.toList());
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public ProductResponse addProduct(@RequestBody ProductRequest request){
         return new ProductResponse(this.service.createProduct(request));
