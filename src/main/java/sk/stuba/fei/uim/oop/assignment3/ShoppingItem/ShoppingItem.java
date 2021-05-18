@@ -3,7 +3,6 @@ package sk.stuba.fei.uim.oop.assignment3.ShoppingItem;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sk.stuba.fei.uim.oop.assignment3.Cart.Cart;
 import sk.stuba.fei.uim.oop.assignment3.Product.Product;
 
 import javax.persistence.*;

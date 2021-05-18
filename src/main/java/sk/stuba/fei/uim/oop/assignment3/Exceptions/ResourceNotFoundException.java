@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.assignment3;
+package sk.stuba.fei.uim.oop.assignment3.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

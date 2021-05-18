@@ -1,14 +1,12 @@
 package sk.stuba.fei.uim.oop.assignment3.Cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import sk.stuba.fei.uim.oop.assignment3.BadRequestException;
+import sk.stuba.fei.uim.oop.assignment3.Exceptions.BadRequestException;
 import sk.stuba.fei.uim.oop.assignment3.Product.IProductService;
 import sk.stuba.fei.uim.oop.assignment3.Product.Product;
 
-import sk.stuba.fei.uim.oop.assignment3.ResourceNotFoundException;
+import sk.stuba.fei.uim.oop.assignment3.Exceptions.ResourceNotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.ShoppingItem.ShopItemsRepository;
 import sk.stuba.fei.uim.oop.assignment3.ShoppingItem.ShoppingItem;
 import sk.stuba.fei.uim.oop.assignment3.ShoppingItem.ShoppingItemRequest;
@@ -93,7 +91,7 @@ public class CartService implements ICartService {
 
     @Override
     public Double getPayed(Long id) {
-        Double total = 0.0;
+        double total = 0.0;
         Cart c = this.cartRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("The cart was not found"));
         if (c.getPayed()) throw new BadRequestException("Already paid");
         else {
